@@ -20,40 +20,38 @@ The associated code models periodic and aperiodic continuous attractor networks 
 ## INSTALLATION 
 
 
-1) Unzip GC_Dynamics2009c.zip with any archive utility (eg. http://www.7-zip.org/download.html)
+1) To compile GC_Dynamcs.c you must have fftw3 installed. It is available at http://www.fftw.org/download.html.  There is not much support for windows so it is recommended that you use unix/osx. These instructions are for osx.
 
-*** If you just want to run the simulation, skip to that section now ***
+2) Once downloaded and unziped, open a terminal window and cd to the unzipped directory.
 
-2) To compile GC_Dynamcs.c you must have fftw3 installed. It is available at http://www.fftw.org/download.html.  There is not much support for windows so it is recommended that you use unix/osx. These instructions are for osx.
+3) The code uses single precision, so when installing fftw, use the argument `--enable-float`. Typing the following in terminal should be sufficient for installation:
 
-3) Once downloaded and unziped, open a terminal window and cd to the unzipped directory.
-
-4) The code uses single precision, so when installing fftw, use the argument --enable-float. Typing the following in terminal should be sufficient for installation:
-
+```
 ./configure --enable-float && make
 make install
+```
 
-This installs the libs in /usr/lib/
-and the include in /usr/local/include/
+This installs the libs in `/usr/lib/`
+and the include in `/usr/local/include/`
 
 4) cd to the directory containing gc_dynamics.c and compile with the following command:
 
+```
 gcc -std=gnu99 -o gc_dynamics gc_dynamics.c -I/usr/local/lib
 -I/usr/lib -lfftw3f -lm
-
+```
 
 
 ## RUNNING THE SIMULATION 
 
-
-1) To run the simulation in OSX or unix, open a terminal window and cd to the directory you unzipped GC_Dynamics2009c.zip into
-
-2) Type 'sh gc_dynamics_periodic.txt' or 'sh gc_dynamics_aperiodic.txt' to begin a simulation. Various files will be created during the simulation. Pop files are the initial population activity. sn_#_# files are single neuron recordings. The first # references when the recording took place and the second # references the neuron. Neuron locations are saved in sn_legend. For example, to view a SN recording, open matlab and load all sn_#_# files for the same neuron. Add them together and surface plot the sum: load sn_100000_001, load sn_200000_001, load sn_300000_001, surf(sn_100000_001 + sn_200000_001 + sn_300000_001)
+1) Type `sh gc_dynamics_periodic.txt` or `sh gc_dynamics_aperiodic.txt` to begin a simulation. Various files will be created during the simulation. Pop files are the initial population activity. sn_#_# files are single neuron recordings. The first # references when the recording took place and the second # references the neuron. Neuron locations are saved in sn_legend. For example, to view a SN recording, open matlab and load all sn_#_# files for the same neuron. Add them together and surface plot the sum: load sn_100000_001, load sn_200000_001, load sn_300000_001, surf(sn_100000_001 + sn_200000_001 + sn_300000_001)
 
 
-3) If you would like to alter the parameters of the simulation, open gc_dynamics_periodic.txt in a text editor. All parameters are listed below.  The variable type (boolean) means that the -argument only needs to be present to take effect. All other require values; for example changing gc_dynamics_periodic to:
+2) If you would like to alter the parameters of the simulation, open `gc_dynamics_periodic.txt` in a text editor. All parameters are listed below.  The variable type (boolean) means that the -argument only needs to be present to take effect. All other require values; for example changing gc_dynamics_periodic to:
 
+```
 ./ento5 -n 128 -randomr -spike -spikename SpikeFiles -periodic
+```
 
 will run a periodic simulation with 123 neurons, random initial population activity and record spiking to a file called 'SpikeFiles' the remaining values will be set to their defaults.
 
